@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api.v1 import books
+from app.api.books import router
 from app.core import settings
 from app.db.session import init_db
 
@@ -19,7 +19,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.include_router(books.router, prefix="/books", tags=["Books"])
+app.include_router(router.router, prefix="/books", tags=["Books"])
 
 
 @app.get("/health", tags=["Health"])

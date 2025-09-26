@@ -1,23 +1,25 @@
 project/
 │
 ├── app/
-│   ├── main.py          # Entry point
-│   ├── core/            # Config, settings, logging
-│   ├── api/             # Routers
-│   │   ├── v1/
-│   │   │   ├── users.py
-│   │   │   ├── items.py
-│   │   │   └── __init__.py
-│   │   └── __init__.py
-│   ├── models/          # SQLAlchemy/Pydantic models
-│   ├── schemas/         # Pydantic schemas
-│   ├── services/        # Business logic
-│   ├── db/              # Database session, migrations
-│   ├── utils/           # Helpers
+│   ├── main.py              # Entry point
+│   ├── core/                # Global config, settings, logging
+│   ├── db/                  # Database session, migrations
+│   ├── users/               # "users" app
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   ├── router.py
+│   │   ├── services.py
+│   │   ├── __init__.py
+│   ├── items/               # "items" app
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   ├── router.py
+│   │   ├── services.py
+│   │   ├── __init__.py
 │   └── __init__.py
 │
-├── tests/               # Unit and integration tests
-├── alembic/             # DB migrations if using Alembic
-├── requirements.txt     # Dependencies
-├── pyproject.toml       # Project config
+├── tests/                   # Tests, can mirror app structure
+├── alembic/                 # DB migrations
+├── requirements.txt
+├── pyproject.toml
 └── README.md
