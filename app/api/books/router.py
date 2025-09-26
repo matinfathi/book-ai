@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import select, Session
 
@@ -10,14 +12,14 @@ router = APIRouter()
 
 
 @router.get("/")
-async def list_books(session: Session = Depends(get_session)) -> dict[str, list[BookRead]]:
+async def list_books(session: Annotated[Session, Depends(get_session)]) -> dict[str, list[BookRead]]:
     book_list = session.exec(select(Book)).all()
     return {"books": book_list}
 
 
 @router.post("/")
 async def add_book(
-    book: BookCreate | list[BookCreate], session: Session = Depends(get_session)
+    book: BookCreate | list[BookCreate], session: Annotated[Session, Depends(get_session)]
 ) -> dict[str, str | BookRead | list[BookRead]]:
     book_list = book if isinstance(book, list) else [book]
     message = ""
@@ -42,7 +44,7 @@ async def add_book(
 
 
 @router.get("/{book_id}")
-async def get_book(book_id: int, session: Session = Depends(get_session)) -> BookRead:
+async def get_book(book_id: int, session: Annotated[Session, Depends(get_session)]) -> BookRead:
     book = session.get(Book, book_id)
     if book:
         return book
@@ -50,7 +52,7 @@ async def get_book(book_id: int, session: Session = Depends(get_session)) -> Boo
 
 
 @router.delete("/{book_id}")
-async def delete_book(book_id: int, session: Session = Depends(get_session)) -> dict[str, str]:
+async def delete_book(book_id: int, session: Annotated[Session, Depends(get_session)]) -> dict[str, str]:
     db_book = session.get(Book, book_id)
     if db_book:
         session.delete(db_book)
@@ -62,7 +64,7 @@ async def delete_book(book_id: int, session: Session = Depends(get_session)) -> 
 
 @router.put("/{book_id}")
 async def update_book(
-    book_id: int, book: BookCreate, session: Session = Depends(get_session)
+    book_id: int, book: BookCreate, session: Annotated[Session, Depends(get_session)]
 ) -> dict[str, str | BookRead]:
     db_book = session.get(Book, book_id)
     if db_book:
