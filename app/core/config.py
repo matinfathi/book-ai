@@ -1,11 +1,14 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Book Store"
-    VERSION: str = "0.0.1"
-    DEBUG: bool = True
-    SQLITE_URL: str | None = None
-    POSTGRES_URL: str | None = None
+    PROJECT_NAME: str
+    VERSION: str
+    DEBUG: bool
+    SQLITE_URL: str
+    POSTGRES_URL: str
+    SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
 
     @property
     def DATABASE_URL(self) -> str:

@@ -6,3 +6,5 @@ class Book(SQLModel, table=True):
     title: str
     author: str
     year: int | None = None
+
+    owner_id: int | None = Field(default=None, foreign_key="user.pk_id")

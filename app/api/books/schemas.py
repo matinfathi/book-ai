@@ -9,3 +9,4 @@ class BookCreate(BaseModel):
 
 class BookRead(BookCreate):
     id: int
+    owner_id: int
