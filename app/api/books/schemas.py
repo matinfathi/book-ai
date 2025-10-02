@@ -10,3 +10,11 @@ class BookCreate(BaseModel):
 class BookRead(BookCreate):
     id: int
     owner_id: int
+    owner: "UserRead"  # type: ignore # noqa: F821
+
+    class Config:
+        from_attributes = True
+
+
+from app.api.users.schemas import UserRead
+BookRead.model_rebuild()

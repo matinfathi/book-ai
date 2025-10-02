@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
 
 
 class Book(SQLModel, table=True):
@@ -8,3 +8,4 @@ class Book(SQLModel, table=True):
     year: int | None = None
 
     owner_id: int | None = Field(default=None, foreign_key="user.pk_id")
+    owner: "User" = Relationship(back_populates="books")  # type: ignore # noqa: F821

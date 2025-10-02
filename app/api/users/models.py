@@ -1,4 +1,4 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
 
 
 class User(SQLModel, table=True):
@@ -9,3 +9,5 @@ class User(SQLModel, table=True):
     image_path: str | None = None
     hashed_password: str
     is_superuser: bool = Field(default=False)
+
+    books: list["Book"] = Relationship(back_populates="owner")  # type: ignore # noqa: F821

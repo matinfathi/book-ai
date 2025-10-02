@@ -91,10 +91,3 @@ async def update_user(
     session.refresh(db_user)
 
     return {"message": "user updated successfully.", "user": db_user}
-
-
-@user_router.get("/me", response_model=UserRead)
-async def read_users_me(
-    current_user: Annotated[UserRead, Depends(get_current_user)],
-):
-    return current_user

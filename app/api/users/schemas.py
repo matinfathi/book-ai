@@ -14,6 +14,7 @@ class UserCreate(UserBase):
 
 class UserRead(UserBase):
     hashed_password: str
+    books: list["BookCreate"] | None = None
 
 
 class UserUpdate(UserBase):
@@ -25,3 +26,7 @@ class UserUpdate(UserBase):
 
 class UserInDB(UserRead):
     hashed_password: str
+
+
+from app.api.books.schemas import BookCreate
+UserRead.model_rebuild()
