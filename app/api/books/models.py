@@ -7,5 +7,5 @@ class Book(SQLModel, table=True):
     author: str
     year: int | None = None
 
-    owner_id: int | None = Field(default=None, foreign_key="user.pk_id")
+    owner_id: int = Field(foreign_key="user.pk_id")
     owner: "User" = Relationship(back_populates="books")  # type: ignore # noqa: F821

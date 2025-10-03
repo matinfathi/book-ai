@@ -10,6 +10,7 @@ class Restaurant(SQLModel, table=True):
     address: str | None = None
     phone: str | None = None
 
+    owner_id: int = Field(foreign_key="user.pk_id")
     food_items: list["FoodItem"] | None = Relationship(back_populates="restaurant")
 
 
@@ -19,13 +20,13 @@ class FoodItem(SQLModel, table=True):
     description: str | None = None
     image: str | None = None
 
-    restaurant_fk: int | None = Field(default=None, foreign_key="restaurant.id")
+    restaurant_fk: int = Field(foreign_key="restaurant.id")
     restaurant: "Restaurant" = Relationship(back_populates="food_items")
 
 
 class Order(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    user_fk: int | None = Field(default=None, foreign_key="user.id")
+    user_fk: int = Field(foreign_key="user.id")
 
     created_at: datetime = Field(default_factory=lambda: datetime.now(ZoneInfo("Asia/Tehran")))
     items: list["OrderItem"] = Relationship(back_populates="order")
@@ -33,8 +34,9 @@ class Order(SQLModel, table=True):
 
 class OrderItem(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    order_fk: int | None = Field(default=None, foreign_key="order.id")
-    fooditem_fk: int | None = Field(default=None, foreign_key="fooditem.id")
+
+    order_fk: int = Field(foreign_key="order.id")
+    fooditem_fk: int = Field(foreign_key="fooditem.id")
     order: "Order" = Relationship(back_populates="items")
 
     quantity: int
